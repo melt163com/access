@@ -73,8 +73,8 @@
                 display: flex;
               ">
                 <el-tabs style="margin-left: 60px" v-model="activeName" @tab-click="handleClick">
-                    <el-tab-pane v-for="item in tabs" :label="item.count ? item.title + item.count : item.title" :name="item.value" :key="item.id">
-                        <div slot="label" class="my-label" :class="activeName === item.value ? 'tab-active' : ''">
+                    <el-tab-pane v-for="item in tabs" :label="item.title" :name="item.id" :key="item.id">
+                        <div slot="label" class="my-label" :class="activeName === item.id ? 'tab-active' : ''">
                             <!-- <span class="key">{{ item.title }}</span> -->
                             <!-- <span class="value" v-if="item.count">{{
                       item.count
@@ -121,7 +121,7 @@
 </template>
 <script setup lang="ts">
     import {
-        ref,
+        ref,onMounted,
         reactive
     } from "vue";
     import {
@@ -137,6 +137,9 @@
     import {
         useRouter
     } from "vue-router";
+    import {
+      getType,getTreeStructure
+    } from "@/api/menu";
     const router = useRouter();
     //当前选项卡
     const activeTabName = "home";
@@ -148,7 +151,7 @@
         console.log(key, keyPath);
     };
     // 首次进入选中的名称
-    const activeName = ref("first");
+    const activeName = ref(1);
     const handleClick = (tab, event) => {
         console.log(tab, event);
     };
@@ -275,6 +278,9 @@
         value: "four",
         id: 4,
     }, ];
+    onMounted(() => {
+      getType(null);
+    });
     //退出登陆
     const exitLogin = () => {
         ElMessageBox.confirm("真的要退出登陆吗?", "提示", {
@@ -296,14 +302,14 @@
         background: #f2f4f5;
         height: 100%;
     }
-    
+
     #one {
         width: 100%;
         padding: 30px 0;
         color: #fff;
         text-align: center;
     }
-    
+
     .menu {
         background: #3780ba;
         display: flex;
@@ -312,13 +318,13 @@
         width: 20%;
         height: 500px;
     }
-    
+
     .tabs {
         width: 100%;
         height: 100%;
         background: #fff;
     }
-    
+
     .avatar {
         width: 30%;
         clear: both;
@@ -327,43 +333,43 @@
         justify-content: center;
         align-items: center;
     }
-    
+
     .avatar>div {
         flex: 1;
         text-align: center;
     }
-    
+
     .avatar>div:not(:last-child) {
         border-right: 1px solid var(--el-border-color);
     }
-    
+
     .Percode {
         width: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    
+
     .example-showcase .el-dropdown+.el-dropdown {
         margin-left: 15px;
     }
-    
+
     .example-showcase .el-dropdown-link {
         cursor: pointer;
         color: var(--el-color-primary);
         display: flex;
         align-items: center;
     }
-    
+
     .el-aside {
         overflow-x: hidden;
         height: 100vh;
     }
-    
+
     .el-sub-menu .el-menu-item {
         padding-left: 60px !important;
     }
-    
+
     #rightBox {
         display: flex;
         flex-direction: row;
@@ -372,24 +378,24 @@
     }
     /* 标签样式更改 */
     /* 去掉el-tab-pane底部灰色线条 */
-    
+
     :deep() .el-tabs__nav-wrap::after {
         height: 0 !important;
     }
-    
+
     :deep().el-tabs__item {
         color: #888;
     }
-    
+
     :deep().el-tabs__active-bar {
         background-color: #3780b9;
     }
-    
+
     :deep().el-tabs__item.is-active {
         color: #000;
     }
     /* 内部header */
-    
+
     .inside-header {
         height: 10px;
         display: flex;
@@ -397,7 +403,7 @@
         align-items: center;
     }
     /* 内部main */
-    
+
     .inside-main {
         width: 100%;
         height: 100%;
@@ -405,18 +411,18 @@
         /* align-items: center; */
     }
     /* 空心按钮样式 */
-    
+
     .empty-but {
         border: 1px solid #3780b9;
         color: #3780b9;
     }
-    
+
     .add-but {
         background: #dde5fe;
         color: #3780b9;
     }
     /* 分页 */
-    
+
     .demo-pagination-block {
         display: flex;
         justify-content: flex-end;
