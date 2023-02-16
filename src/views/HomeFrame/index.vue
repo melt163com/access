@@ -244,7 +244,7 @@
       //     }, ],
       // },
     ]});
-    getTreeStructure({type:1}).then((res:any)=>{
+    getTreeStructure({}).then((res:any)=>{
       asideMenu.menu = res;
     });
     // 侧边菜单打开关闭
