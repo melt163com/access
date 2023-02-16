@@ -7,7 +7,7 @@
           <h4>华晨宝马</h4>
           <h4>铁西工厂一号门</h4>
         </div>
-        <el-menu
+        <el-menu forceRender
           active-text-color="#fff"
           background-color="#3780B9"
           class="el-menu-vertical-demo"
@@ -16,16 +16,16 @@
           :router="true"
         >
           <!-- <el-menu default-active="2" class="el-menu-vertical-demo" background-color="#3780B9" active-text-color="#ffd04b" text-color="#fff" @open="handleOpen" @close="handleClose"> -->
-          <template v-for="item in asideMenu">
+          <template v-for="item in asideMenu.menu">
             <!-- 两级菜单 -->
-            <template v-if="item.subs">
-              <el-sub-menu :index="item.title" :key="item.title">
+            <template v-if="item.tree_type==newTab.tab">
+              <el-sub-menu :index="item.fname" :key="item.fname">
                 <!-- 一级菜单标题 -->
                 <template #title>
                   <el-icon>
                     <document />
                     <img
-                      v-if="item.id == 1"
+                      v-if="item.fid == 1"
                       style="
                         height: 1rem;
                         padding-right: 0.3rem;
@@ -45,14 +45,14 @@
                       alt=""
                     />
                   </el-icon>
-                  <span>{{ item.title }}</span>
+                  <span>{{ item.fname }}</span>
                 </template>
-<!-- 二级菜单标题 -->
-<template v-for="subItem in item.subs" :key="subItem.index">
+              <!-- 二级菜单标题 -->
+              <template v-for="subItem in item.childList" :key="subItem.index">
                   <el-menu-item
                     :index="subItem.index"
                     @click="() => handleMenuItem(subItem)"
-                    >{{ subItem.title }}</el-menu-item
+                    >{{ subItem.fname }}</el-menu-item
                   >
                 </template>
 </el-sub-menu>
@@ -73,8 +73,8 @@
                 display: flex;
               ">
                 <el-tabs style="margin-left: 60px" v-model="activeName" @tab-click="handleClick">
-                    <el-tab-pane v-for="item in tabs" :label="item.title" :name="item.id" :key="item.id">
-                        <div slot="label" class="my-label" :class="activeName === item.id ? 'tab-active' : ''">
+                    <el-tab-pane v-for="item in tabs" :label="item.fname" :name="item.fid" :key="item.fid">
+                        <div slot="label" class="my-label" :class="activeName === item.fid ? 'tab-active' : ''">
                             <!-- <span class="key">{{ item.title }}</span> -->
                             <!-- <span class="value" v-if="item.count">{{
                       item.count
@@ -143,6 +143,110 @@
     const router = useRouter();
     //当前选项卡
     const activeTabName = "home";
+    // 左侧菜单栏假数据
+    let asideMenu = reactive({
+        name:'',
+        menu:[
+      //     {
+      //     fname: "视频管理",
+      //     fid: "1",
+      //     childList: [{
+      //         fname: "线上视频查询",
+      //         index: "VideomonitorIndex",
+      //     }, ],
+      // }, {
+      //   fname: "车辆备案",
+      //   fid: "2",
+      //     childList: [{
+      //       fname: "运输车辆",
+      //
+      //         index: "transportIndex",
+      //     }, {
+      //       fname: "场内车辆",
+      //
+      //         index: "onsiteIndex",
+      //     }, {
+      //       fname: "非道路移动机械",
+      //
+      //         index: "nonRoadIndex",
+      //     }, ],
+      // }, {
+      //   fname: "数据应用",
+      //     fid: "3",
+      //     childList: [{
+      //       fname: "车辆备案查询",
+      //
+      //         index: "filingQueryIndex",
+      //     }, {
+      //       fname: "车辆进出台账",
+      //
+      //         index: "standingBookIndex",
+      //     }, {
+      //       fname: "车辆进出统计",
+      //
+      //         index: "statisticsIndex",
+      //     }, {
+      //       fname: "后端执行日志",
+      //
+      //         index: "executionLogIndex",
+      //     }, ],
+      // }, {
+      //   fname: "企业文件",
+      //     fid: "4",
+      //     childList: [{
+      //       fname: "企业环保信息",
+      //
+      //         index: "entInformationIndex",
+      //     }, {
+      //       fname: "文件分类管理",
+      //
+      //         index: "fileClassIndex",
+      //     }, {
+      //       fname: "政策法规管理",
+      //
+      //         index: "policyStatuteIndex",
+      //     }, ],
+      // }, {
+      //   fname: "供应商管理",
+      //     fid: "5",
+      //     childList: [{
+      //       fname: "供应商列表",
+      //
+      //         index: "supplierIndex",
+      //     }, {
+      //       fname: "供应商分类",
+      //
+      //         index: "classIndex",
+      //     }, {
+      //       fname: "供应商合同",
+      //
+      //         index: "contractIndex",
+      //     }, ],
+      // }, {
+      //   fname: "人员管理",
+      //     fid: "6",
+      //     childList: [{
+      //       fname: "环保局人员",
+      //         index: "bureauPersonIndex",
+      //     }, {
+      //       fname: "企业环保人员",
+      //         index: "entPersonIndex",
+      //     }, {
+      //       fname: "供应商人员",
+      //         index: "supplierPersonIndex",
+      //     }, ],
+      // }, {
+      //   fname: "账号管理",
+      //     fid: "7",
+      //     childList: [{
+      //       fname: "账号列表",
+      //         index: "accIndex",
+      //     }, ],
+      // },
+    ]});
+    getTreeStructure({type:1}).then((res:any)=>{
+      asideMenu.menu = res;
+    });
     // 侧边菜单打开关闭
     const handleOpen = (key, keyPath) => {
         console.log(key, keyPath);
@@ -151,136 +255,31 @@
         console.log(key, keyPath);
     };
     // 首次进入选中的名称
-    const activeName = ref(1);
-    const handleClick = (tab, event) => {
-        console.log(tab, event);
-    };
-    // 左侧菜单栏假数据
-    const asideMenu = [{
-        title: "视频管理",
-        id: "1",
-        subs: [{
-            title: "线上视频查询",
-
-            index: "VideomonitorIndex",
-        }, ],
-    }, {
-        title: "车辆备案",
-        id: "2",
-        subs: [{
-            title: "运输车辆",
-
-            index: "transportIndex",
-        }, {
-            title: "场内车辆",
-
-            index: "onsiteIndex",
-        }, {
-            title: "非道路移动机械",
-
-            index: "nonRoadIndex",
-        }, ],
-    }, {
-        title: "数据应用",
-        id: "3",
-        subs: [{
-            title: "车辆备案查询",
-
-            index: "filingQueryIndex",
-        }, {
-            title: "车辆进出台账",
-
-            index: "standingBookIndex",
-        }, {
-            title: "车辆进出统计",
-
-            index: "statisticsIndex",
-        }, {
-            title: "后端执行日志",
-
-            index: "executionLogIndex",
-        }, ],
-    }, {
-        title: "企业文件",
-        id: "4",
-        subs: [{
-            title: "企业环保信息",
-
-            index: "entInformationIndex",
-        }, {
-            title: "文件分类管理",
-
-            index: "fileClassIndex",
-        }, {
-            title: "政策法规管理",
-
-            index: "policyStatuteIndex",
-        }, ],
-    }, {
-        title: "供应商管理",
-        id: "5",
-        subs: [{
-            title: "供应商列表",
-
-            index: "supplierIndex",
-        }, {
-            title: "供应商分类",
-
-            index: "classIndex",
-        }, {
-            title: "供应商合同",
-
-            index: "contractIndex",
-        }, ],
-    }, {
-        title: "人员管理",
-        id: "6",
-        subs: [{
-            title: "环保局人员",
-
-            index: "bureauPersonIndex",
-        }, {
-            title: "企业环保人员",
-
-            index: "entPersonIndex",
-        }, {
-            title: "供应商人员",
-
-            index: "supplierPersonIndex",
-        }, ],
-    }, {
-        title: "账号管理",
-        id: "7",
-        subs: [{
-            title: "账号列表",
-
-            index: "accIndex",
-        }, ],
-    }, ];
-
+    const activeName = reactive(1);
     // tabs循环数据
-    const tabs = [{
-        title: "视频监控",
-        value: "first",
-        // count: 3,
-        id: 1,
+    let tabs = [{
+      fname: "视频监控",
+      value: "first",
+      fid: 1,
     }, {
-        title: "移动污染",
-        value: "second",
-        // count: 4,
-        id: 2,
+      fname: "移动污染",
+      value: "second",
+      fid: 2,
     }, {
-        title: "企业环保",
-        value: "third",
-        id: 3,
+      fname: "企业环保",
+      value: "third",
+      fid: 3,
     }, {
-        title: "账号管理",
-        value: "four",
-        id: 4,
+      fname: "账号管理",
+      value: "four",
+      fid: 4,
     }, ];
-    onMounted(() => {
-      getType(null);
-    });
+    let newTab = reactive({tab:1});
+    const handleClick = (tab, event) => {
+       newTab.tab = tab.props.name;
+       console.log(newTab)
+    };
+
     //退出登陆
     const exitLogin = () => {
         ElMessageBox.confirm("真的要退出登陆吗?", "提示", {
