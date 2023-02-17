@@ -23,14 +23,13 @@ const routes: Array<RouteRecordRaw> = [
       {
         // 这里不设置值，是把main作为默认页面
         path: "",
-        redirect: "/listPage",
+        redirect: "/main",
       },
       {
         // 这里不设置值，是把main作为默认页面
-        path: "listPage",
-        name: "listPage",
-        component: () =>
-          import("../views/MobilePollution/transport-vehicle/listPage.vue"),
+        path: "main",
+        name: "main",
+        component: () => import("../views/Main/index.vue"),
       },
       {
         // 视频监控-视频管理-线上视频查询列表页
@@ -209,7 +208,7 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes,
+  routes
 });
 
 export default router;
