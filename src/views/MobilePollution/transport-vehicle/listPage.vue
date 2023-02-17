@@ -59,7 +59,7 @@
                 <div style="height: 40px; display: flex; align-items: center">
                     <el-button size="small" :icon="Plus" class="add-but" @click='addPage()'>新增</el-button>
                     <el-button size="small" class="empty-but" @click="dialogTableVisible = true">导入</el-button>
-                    <el-button size="small" class="empty-but">导出</el-button>
+                    <el-button size="small" class="empty-but" @click="exportExcel">导出</el-button>
                 </div>
                 <!-- 导入弹出框 -->
                 <el-dialog style="width: 600px;" v-model="dialogTableVisible" center title="导入文件">
@@ -174,11 +174,7 @@
         ElMessage,
         ElMessageBox
     } from 'element-plus'
-
-    import {
-        UploadProps,
-        UploadUserFile
-    } from 'element-plus'
+    import * as XLSX from "xlsx";
     let table = reactive({
         rows: [],
         total: 0
@@ -228,9 +224,9 @@ const list = ()=>{
     });
     // 表格假数据
     const tableData = [{
-        序号: "1",
+        序号: 1,
         类型: "出门",
-        车牌: "辽A88888",
+        车牌: "辽A88882",
         车辆照片: "点击查看图片",
         随车清单: "点击查看图片",
         行驶证: "点击查看图片",
@@ -238,7 +234,7 @@ const list = ()=>{
         申请时间: "22.12.10 14：50：26",
         排放标准: "国V",
     }, {
-        序号: "2",
+        序号: 2,
         类型: "出门",
         车牌: "辽A88888",
         车辆照片: "点击查看图片",
@@ -248,6 +244,12 @@ const list = ()=>{
         申请时间: "22.12.10 14：50：26",
         排放标准: "国V",
     }, ];
+    const exportExcel = ()=>{
+      const data = XLSX.utils.json_to_sheet(tableData)//此处tableData.value为表格的数据
+      const wb = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(wb,data,'test-data')//test-data为自定义的sheet表名
+      XLSX.writeFile(wb,'运输车辆备案.xlsx')//test.xlsx为自定义的文件名
+    }
 </script>
 <style scoped>
     /* 面包屑字体颜色更改 */

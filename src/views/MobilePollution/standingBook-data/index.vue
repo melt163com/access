@@ -53,7 +53,7 @@
             <el-col :span="5" style="margin-left: 10px">
               <el-button size="small" class="sele-but">查询</el-button>
               <el-button size="small" class="empty-but">重置</el-button>
-              <el-button size="small" class="empty-but">导出</el-button>
+              <el-button size="small" class="empty-but" @click="exportExcel">导出</el-button>
             </el-col>
           </el-row>
         </div>
@@ -97,6 +97,7 @@
     import {
         useRouter
     } from "vue-router";
+    import * as XLSX from "xlsx";
     const router = useRouter();
     // 跳转到详情页面
     const detailPage = () => {
@@ -117,7 +118,7 @@
     });
     // 表格假数据
     const tableData = [{
-        序号: "1",
+        序号: 1,
         状态: "已通过",
         类型: "入厂",
         门禁号: "一号门",
@@ -130,7 +131,7 @@
         查看视频: "点击查看视频",
         查看照片: "点击查看照片",
     }, {
-        序号: "2",
+        序号: 2,
         状态: "未补登",
         类型: "出厂",
         门禁号: "一号门",
@@ -143,15 +144,21 @@
         查看视频: "点击查看视频",
         查看照片: "点击查看照片",
     }, ];
+    const exportExcel = ()=>{
+      const data = XLSX.utils.json_to_sheet(tableData)//此处tableData.value为表格的数据
+      const wb = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(wb,data,'test-data')//test-data为自定义的sheet表名
+      XLSX.writeFile(wb,'车辆进出台账.xlsx')//test.xlsx为自定义的文件名
+    }
 </script>
 <style scoped>
     /* 面包屑字体颜色更改 */
-    
+
     .breadcrumbColor>>>.el-breadcrumb__inner {
         color: #000;
     }
     /* 内部header */
-    
+
     .inside-header {
         height: 10px;
         display: flex;
@@ -159,26 +166,26 @@
         align-items: center;
     }
     /* 空心按钮样式 */
-    
+
     .empty-but {
         border: 1px solid #3780b9;
         color: #3780b9;
     }
     /* 实心按钮背景样式 */
-    
+
     .sele-but {
         background: #3780b9;
         border: 0px;
         border-radius: 2px;
         color: white;
     }
-    
+
     .add-but {
         background: #dde5fe;
         color: #3780b9;
     }
     /* 分页 */
-    
+
     .demo-pagination-block {
         display: flex;
         justify-content: flex-end;

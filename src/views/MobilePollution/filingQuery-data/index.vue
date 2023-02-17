@@ -56,10 +56,9 @@
                         <el-col :span="4" style="margin-left: 20px;">
                             <el-button size="small" class="sele-but">查询</el-button>
                             <el-button size="small" class="empty-but">刷新</el-button>
-                            <el-button size="small" class="empty-but">导出</el-button>
+                            <el-button size="small" class="empty-but" @click="exportExcel">导出</el-button>
                         </el-col>
                     </el-row>
-                    <div></div>
                 </div>
                 <!-- 导入弹出框 -->
                 <el-dialog style="width: 600px;" v-model="dialogTableVisible" center title="导入文件">
@@ -109,7 +108,7 @@
 </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
     import {
         onMounted,
         reactive,
@@ -131,29 +130,12 @@
         ElMessage,
         ElMessageBox
     } from 'element-plus'
-
-    import {
-        UploadProps,
-        UploadUserFile
-    } from 'element-plus'
+    import * as XLSX from 'xlsx'
     let table = reactive({
         rows: [],
         total: 0
     });
-    // onMounted(() => {
-    //     getTbaleData(null);
-    // });
-    // const getTbaleData = (namel) => {
-    //     getUsers({
-    //             displayName: name,
-    //             pageNo: 1,
-    //             pageSize: 10,
-    //         })
-    //         .then((res) => {
-    //             // table.rows = res.data.records;
-    //             // table.total = res.data.total
-    //         });
-    // };
+
     // 导入
     const fileList = ref([{
         name: 'food.jpeg',
@@ -199,7 +181,7 @@
     });
     // 表格假数据
     const tableData = [{
-        序号: "1",
+        序号: 1,
         企业名称: "",
         环保等级: "",
         通行状态: "已通过",
@@ -216,19 +198,24 @@
         注册时间: "",
         车辆识别代码: "",
         发动机号码: "",
-        注册时间: "",
         运输货物: "钢铁",
-        运输货量: '50'
+        运输货量: 50
     }];
+    const exportExcel = ()=>{
+      const data = XLSX.utils.json_to_sheet(tableData)//此处tableData.value为表格的数据
+      const wb = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(wb,data,'test-data')//test-data为自定义的sheet表名
+      XLSX.writeFile(wb,'车辆备案查询.xlsx')//test.xlsx为自定义的文件名
+    }
 </script>
 <style scoped>
     /* 面包屑字体颜色更改 */
-    
+
     .breadcrumbColor>>>.el-breadcrumb__inner {
         color: #000;
     }
     /* 内部header */
-    
+
     .inside-header {
         height: 10px;
         display: flex;
@@ -236,26 +223,26 @@
         align-items: center;
     }
     /* 空心按钮样式 */
-    
+
     .empty-but {
         border: 1px solid #3780b9;
         color: #3780b9;
     }
     /* 实心按钮背景样式 */
-    
+
     .sele-but {
         background: #3780b9;
         border: 0px;
         border-radius: 2px;
         color: white;
     }
-    
+
     .add-but {
         background: #dde5fe;
         color: #3780b9;
     }
     /* 分页 */
-    
+
     .demo-pagination-block {
         display: flex;
         justify-content: flex-end;

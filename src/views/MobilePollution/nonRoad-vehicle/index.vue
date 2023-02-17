@@ -47,7 +47,7 @@
                 <div style="height: 40px; display: flex; align-items: center">
                     <el-button size="small" :icon="Plus" class="add-but" @click='addPage()'>新增</el-button>
                     <el-button size="small" class="empty-but" @click="dialogTableVisible = true">导入</el-button>
-                    <el-button size="small" class="empty-but">导出</el-button>
+                    <el-button size="small" class="empty-but" @click="exportExcel">导出</el-button>
                 </div>
                 <!-- 导入弹出框 -->
                 <el-dialog style="width: 600px;" v-model="dialogTableVisible" center title="导入文件">
@@ -111,11 +111,7 @@
         ElMessage,
         ElMessageBox
     } from 'element-plus'
-
-    import {
-        UploadProps,
-        UploadUserFile
-    } from 'element-plus'
+    import * as XLSX from 'xlsx'
     // 导入
     const fileList = ref([{
         name: 'food.jpeg',
@@ -162,7 +158,7 @@
     });
     // 表格假数据
     const tableData = [{
-        序号: "1",
+        序号: 1,
         环保登记编码: "3432",
         机械环保代码: "grg423424",
         车辆铭牌照片: "点击查看图片",
@@ -171,7 +167,7 @@
         排放阶段: "普通",
         注册日期: "22.12.10 14：50：26",
     }, {
-        序号: "1",
+        序号: 1,
         环保登记编码: "3432",
         机械环保代码: "grg423424",
         车辆铭牌照片: "点击查看图片",
@@ -180,15 +176,21 @@
         排放阶段: "普通",
         注册日期: "22.12.10 14：50：26",
     }, ];
+    const exportExcel = ()=>{
+      const data = XLSX.utils.json_to_sheet(tableData)//此处tableData.value为表格的数据
+      const wb = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(wb,data,'test-data')//test-data为自定义的sheet表名
+      XLSX.writeFile(wb,'非道路移动机械.xlsx')//test.xlsx为自定义的文件名
+    }
 </script>
 <style scoped>
     /* 面包屑字体颜色更改 */
-    
+
     .breadcrumbColor>>>.el-breadcrumb__inner {
         color: #000;
     }
     /* 内部header */
-    
+
     .inside-header {
         height: 10px;
         display: flex;
@@ -196,26 +198,26 @@
         align-items: center;
     }
     /* 空心按钮样式 */
-    
+
     .empty-but {
         border: 1px solid #3780b9;
         color: #3780b9;
     }
     /* 实心按钮背景样式 */
-    
+
     .sele-but {
         background: #3780b9;
         border: 0px;
         border-radius: 2px;
         color: white;
     }
-    
+
     .add-but {
         background: #dde5fe;
         color: #3780b9;
     }
     /* 分页 */
-    
+
     .demo-pagination-block {
         display: flex;
         justify-content: flex-end;
