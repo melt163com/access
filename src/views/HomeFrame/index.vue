@@ -257,7 +257,8 @@
     // 首次进入选中的名称
     const activeName = reactive(1);
     // tabs循环数据
-    let tabs = [{
+    let tabs = [
+      {
       fname: "视频监控",
       value: "first",
       fid: 1,
@@ -273,7 +274,8 @@
       fname: "账号管理",
       value: "four",
       fid: 4,
-    }, ];
+    },
+    ];
     let newTab = reactive({tab:1});
     const handleClick = (tab, event) => {
        newTab.tab = tab.props.name;

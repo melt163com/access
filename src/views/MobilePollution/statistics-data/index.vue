@@ -138,7 +138,7 @@
 </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
     import {
         onMounted,
         reactive,
@@ -251,12 +251,12 @@
 </script>
 <style scoped>
     /* 面包屑字体颜色更改 */
-    
+
     .breadcrumbColor>>>.el-breadcrumb__inner {
         color: #000;
     }
     /* 内部header */
-    
+
     .inside-header {
         height: 10px;
         display: flex;
@@ -264,26 +264,26 @@
         align-items: center;
     }
     /* 空心按钮样式 */
-    
+
     .empty-but {
         border: 1px solid #3780b9;
         color: #3780b9;
     }
     /* 实心按钮背景样式 */
-    
+
     .sele-but {
         background: #3780b9;
         border: 0px;
         border-radius: 2px;
         color: white;
     }
-    
+
     .add-but {
         background: #dde5fe;
         color: #3780b9;
     }
     /* 分页 */
-    
+
     .demo-pagination-block {
         display: flex;
         justify-content: flex-end;

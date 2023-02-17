@@ -63,32 +63,33 @@
     } from "vue-router";
     export default defineComponent({
         setup() {
-            const setFlag = () => {
-                Login({
-                    usernumber: ruleForm.username.toString(),
-                    userpwd: ruleForm.password.toString(),
-                }).then(
-                    (res) => {
-                        console.log(res, "res");
-                        console.log(res.code, "code");
-                        if (res.code == 200) {
-                            ElMessage.success("登录成功");
-                            localStorage.setItem("token", res.data.token);
-                            router.push("/");
-                        } else {
-                            ElMessage.error(res.msg);
-                        }
-                        // ElMessage.success("登录成功");
-                        // localStorage.setItem("token", res.data.token);
-                        // router.push("/");
-                    },
-                    (err) => {
-                        console.log(err);
-                        ElMessage.error("登录失败");
-                        return false;
-                    }
-                );
-            };
+            //登录
+            // const setFlag = () => {
+            //     Login({
+            //         usernumber: ruleForm.username.toString(),
+            //         userpwd: ruleForm.password.toString(),
+            //     }).then(
+            //         (res) => {
+            //             console.log(res, "res");
+            //             console.log(res.code, "code");
+            //             if (res.code == 200) {
+            //                 ElMessage.success("登录成功");
+            //                 localStorage.setItem("token", res.data.token);
+            //                 router.push("/");
+            //             } else {
+            //                 ElMessage.error(res.msg);
+            //             }
+            //             // ElMessage.success("登录成功");
+            //             // localStorage.setItem("token", res.data.token);
+            //             // router.push("/");
+            //         },
+            //         (err) => {
+            //             console.log(err);
+            //             ElMessage.error("登录失败");
+            //             return false;
+            //         }
+            //     );
+            // };
             const router = useRouter();
             const ruleFormRef = ref();
             const ruleForm = reactive({
@@ -124,10 +125,10 @@
                 }, ],
             };
             // 假登录
-            // const setFlag = () => {
-            //     localStorage.setItem("isLogin", 1);
-            //     router.replace("/");
-            // };
+            const setFlag = () => {
+                localStorage.setItem("isLogin", 1);
+                router.replace("/");
+            };
             return {
                 rules,
                 ruleForm,
@@ -146,7 +147,7 @@
         overflow: hidden;
         background-size: cover;
     }
-    
+
     .logo {
         /* background: rebeccapurple; */
         background-image: url("@/assets/logo.png");
@@ -154,7 +155,7 @@
         height: 56px;
         margin: 40px 40px;
     }
-    
+
     .login-box {
         width: 420px;
         height: 390px;
@@ -163,7 +164,7 @@
         top: 20%;
         /* background: rgba(114, 114, 114, 0.2); */
     }
-    
+
     .input-box {
         width: 300px;
         height: 40px;
@@ -172,15 +173,15 @@
         color: #fff;
         /* border: 1px solid #47c9FF; */
     }
-    
+
     ::v-deep .el-input__wrapper {
         background-color: transparent !important;
     }
-    
+
     ::v-deep .el-form-item__error {
         margin-left: 45px;
     }
-    
+
     .loginBtn {
         width: 300px;
         height: 40px;

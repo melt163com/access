@@ -14,14 +14,14 @@
             <el-main>
                 <div class="inside-main-box">
                     <el-row class="inside-main" style="background: #fff;padding-top: 10px;height: 46px;">
-                        <el-col :span="5" style="margin-left: 20px;">
+                        <el-col :span="4" style="margin-left: 20px;">
                             <el-form-item label="申请时间" size="small">
                                 <el-date-picker v-model="form.date1" type="date" placeholder="选择时间" style="width: 100%" />
                                 <!-- <span class="text-gray-500">-</span> -->
                             </el-form-item>
                         </el-col>
                         <span>-</span>
-                        <el-col :span="4">
+                        <el-col :span="3">
                             <el-form-item label="" size="small">
                                 <!-- <span class="text-gray-500">-</span> -->
                                 <el-date-picker v-model="form.date2" type="date" placeholder="选择时间" style="width: 100%" />
@@ -38,18 +38,18 @@
                             </el-form-item>
                         </el-col>
 
-                        <el-col :span="3" style="margin-left: 5px;">
+                        <el-col :span="4" style="margin-left: 5px;">
                             <el-form-item label="选择类型" size="small">
-                                <el-col :span="4">
+
                                     <el-select v-model="form.access" placeholder="全部">
                                         <el-option label="全部" value="shanghai" />
                                         <el-option label="全部" value="beijing" />
                                     </el-select>
-                                </el-col>
+
                             </el-form-item>
                         </el-col>
 
-                        <el-col :span="4">
+                        <el-col :span="4" style="margin-left:10px">
                             <el-button size="small" class="sele-but">查询</el-button>
                             <el-button size="small" class="empty-but">重置</el-button>
                         </el-col>
@@ -79,21 +79,65 @@
                         </template>
 </el-upload>
 </el-dialog>
+ <el-dialog v-model="centerDialogVisible"  width="60%" center>
+                    <img
+
+                      style="
+
+                        vertical-align: middle;
+                      "
+                      :src="car"
+                      alt=""
+                    />
+
+  </el-dialog>
 <div style="background: #fff;">
     <el-table :data="tableData" style="width: 100%;">
         <el-table-column align="center" prop="序号" label="序号" width="80px" />
         <el-table-column align="center" prop="类型" label="类型" />
         <el-table-column align="center" prop="车牌" label="车牌" />
-        <el-table-column align="center" prop="车辆照片" label="车辆照片" />
-        <el-table-column align="center" prop="随车清单" label="随车清单" />
-        <el-table-column align="center" prop="行驶证" label="行驶证" />
-        <el-table-column align="center" prop="健康码" label="健康码" />
-        <el-table-column align="center" prop="申请时间" label="申请时间" />
+        <el-table-column align="center" prop="车辆照片" label="车辆照片" >
+        <template #default="scope">
+        <el-button
+
+      link
+       @click="list">{{scope.row.车辆照片}}</el-button
+    >
+</template>
+</el-table-column>
+        <el-table-column align="center" prop="随车清单" label="随车清单" >
+                <template #default="scope">
+        <el-button
+
+      link
+       @click="list">{{scope.row.随车清单}}</el-button
+    >
+</template>
+</el-table-column>
+        <el-table-column align="center" prop="行驶证" label="行驶证" >
+                        <template #default="scope">
+        <el-button
+
+      link
+       @click="list">{{scope.row.行驶证}}</el-button
+    >
+</template>
+</el-table-column>
+        <el-table-column align="center" prop="健康码" label="健康码" >
+                        <template #default="scope">
+        <el-button
+
+      link
+       @click="list">{{scope.row.健康码}}</el-button
+    >
+</template>
+</el-table-column>
+        <el-table-column align="center" prop="申请时间" label="申请时间" width="200px" />
         <el-table-column align="center" prop="排放标准" label="排放标准" />
         <el-table-column align="center" fixed="right" label="操作" width="120">
             <template #default>
                                 <el-button link type="primary" size="small" @click="detailPage">详情</el-button>
-                                <el-button link type="primary" size="small">修改</el-button>
+                                <el-button link type="primary" size="small" >修改</el-button>
                                 <el-button link type="primary" size="small">删除</el-button>
                             </template>
         </el-table-column>
@@ -103,10 +147,11 @@
 </div>
 </el-main>
 </el-container>
+
 </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
     import {
         onMounted,
         reactive,
@@ -119,6 +164,7 @@
     // import {
     //     getUsers
     // } from "@/api/user"
+    import car from"@/assets/car.png"
     // 路由
     import {
         useRouter
@@ -138,27 +184,13 @@
         total: 0
     });
     onMounted(() => {
-        // getTbaleData(null);
     });
-    // const getTbaleData = (namel) => {
-    //     getUsers({
-    //             displayName: name,
-    //             pageNo: 1,
-    //             pageSize: 10,
-    //         })
-    //         .then((res) => {
-    //             // table.rows = res.data.records;
-    //             // table.total = res.data.total
-    //         });
-    // };
+    const centerDialogVisible = ref(false)
+const list = ()=>{
+  centerDialogVisible.value = true
+}
     // 导入
-    const fileList = ref([{
-        name: 'food.jpeg',
-        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
-    }, {
-        name: 'food2.jpeg',
-        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100',
-    }, ])
+    const fileList = ref([])
 
     const handleRemove = (uploadFile, uploadFiles) => {
         console.log(uploadFile, uploadFiles)
@@ -219,12 +251,12 @@
 </script>
 <style scoped>
     /* 面包屑字体颜色更改 */
-    
+
     .breadcrumbColor>>>.el-breadcrumb__inner {
         color: #000;
     }
     /* 内部header */
-    
+
     .inside-header {
         height: 10px;
         display: flex;
@@ -232,26 +264,26 @@
         align-items: center;
     }
     /* 空心按钮样式 */
-    
+
     .empty-but {
         border: 1px solid #3780b9;
         color: #3780b9;
     }
     /* 实心按钮背景样式 */
-    
+
     .sele-but {
         background: #3780b9;
         border: 0px;
         border-radius: 2px;
         color: white;
     }
-    
+
     .add-but {
         background: #dde5fe;
         color: #3780b9;
     }
     /* 分页 */
-    
+
     .demo-pagination-block {
         display: flex;
         justify-content: flex-end;
