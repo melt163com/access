@@ -29,14 +29,14 @@
                         </el-col>
                         <el-col :span="3" style="margin-left: 5px;">
                             <el-form-item label="车牌号" size="small">
-                                <el-input v-model="form.driver" />
+                                <el-input v-model="form.driver" placeholder="请输入" />
                             </el-form-item>
                         </el-col>
                         <el-col :span="3" style="margin-left: 5px;">
                             <el-form-item label="出入类型" size="small">
-                                <el-select v-model="form.access" placeholder="全部">
-                                    <el-option label="全部" value="shanghai" />
-                                    <el-option label="全部" value="beijing" />
+                                <el-select v-model="form.access" placeholder="请选择">
+                                    <el-option label="出厂" value="shanghai" />
+                                    <el-option label="入厂" value="beijing" />
                                 </el-select>
                             </el-form-item>
                         </el-col>

@@ -27,23 +27,23 @@
                                 <el-date-picker v-model="form.date2" type="date" placeholder="选择时间" style="width: 100%" />
                             </el-form-item>
                         </el-col>
-                        <el-col :span="3" style="margin-left: 5px;">
+                        <el-col :span="4" style="margin-left: 5px;">
                             <el-form-item label="车牌号" size="small">
-                                <el-input v-model="form.num" />
+                                <el-input v-model="form.num" placeholder="请输入车牌号"/>
                             </el-form-item>
                         </el-col>
-                        <el-col :span="3" style="margin-left: 5px;">
+                        <el-col :span="4" style="margin-left: 5px;">
                             <el-form-item label="司机" size="small">
-                                <el-input v-model="form.driver" />
+                                <el-input v-model="form.driver" placeholder="请输入司机" />
                             </el-form-item>
                         </el-col>
 
-                        <el-col :span="4" style="margin-left: 5px;">
+                        <el-col :span="3" style="margin-left: 5px;">
                             <el-form-item label="选择类型" size="small">
 
-                                    <el-select v-model="form.access" placeholder="全部">
-                                        <el-option label="全部" value="shanghai" />
-                                        <el-option label="全部" value="beijing" />
+                                    <el-select v-model="form.access" placeholder="请选择">
+                                        <el-option label="国I" value="shanghai" />
+                                        <el-option label="国II" value="beijing" />
                                     </el-select>
 
                             </el-form-item>

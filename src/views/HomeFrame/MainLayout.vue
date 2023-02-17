@@ -79,6 +79,7 @@
                     </el-tab-pane>
                 </el-tabs>
             </div>
+
             <!-- 表头用户头像及编号 -->
             <div style="width: 20%; height: 100%; float: right" id="rightBox">
                 <div class="avatar">
@@ -94,17 +95,65 @@
                     </el-icon>
                   </span>
                         <template #dropdown>
+                                                                <el-dropdown-menu>
+                      <el-dropdown-item @click="updatePwd"
+                        >修改密码</el-dropdown-item
+                      >
+                    </el-dropdown-menu>
                     <el-dropdown-menu>
                       <el-dropdown-item @click="exitLogin()"
                         >退出登录</el-dropdown-item
                       >
                     </el-dropdown-menu>
+
                   </template>
                     </el-dropdown>
                 </div>
             </div>
         </div>
     </el-header>
+<!--    修改密码弹窗-->
+      <el-dialog v-model="updatePwdDialog" title="修改密码" width="50%" center>
+    <div style="width:90%">
+        <el-form ref="ruleFormRef" :model="ruleForm" status-icon :rules="rules" label-width="120px" class="demo-ruleForm">
+
+            <el-form-item label="旧密码" prop="password">
+                <div>
+                    <el-input v-model="ruleForm.password" placeholder="请输入旧密码" autocomplete="off" />
+                </div>
+                <div style="margin-left: 10px;">
+
+                </div>
+            </el-form-item>
+            <el-form-item label="新密码" prop="password">
+                <div>
+                    <el-input v-model="ruleForm.password" placeholder="请输入新密码" autocomplete="off" />
+                </div>
+                <div style="margin-left: 10px;">
+
+                </div>
+            </el-form-item>
+            <el-form-item label="确认密码" prop="password">
+                <div>
+                    <el-input v-model="ruleForm.password" placeholder="请确认您的密码" autocomplete="off" />
+                </div>
+                <div style="margin-left: 10px;">
+
+                </div>
+
+            </el-form-item>
+       <span style="font-size: 2px;color: #c0403f;margin-left:120px;">要求包含:英文大小写+数字,不少于6位</span>
+        </el-form>
+        </div>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="updatePwdDialog = false">取消</el-button>
+        <el-button type="primary" @click="updatePwdDialog = false">
+          确认
+        </el-button>
+      </span>
+    </template>
+  </el-dialog>
     <!-- 主体模块：标签页 + 当前路由内容 -->
     <el-main class="el-main" style="width: 100%">
         <router-view style="height: 100vh" />
@@ -135,6 +184,24 @@
     export default {
         setup() {
           const router = useRouter()
+          // 修改密码
+          const updatePwd = () => {
+            ElMessageBox.confirm("真的要修改密码吗?", "提示", {
+              confirmButtonText: "确认",
+              cancelButtonText: "取消",
+              type: "warning",
+            })
+              .then(() => {
+                updatePwdDialog.value=true
+              })
+              .catch(() => {
+                //取消：就不做任何提示了
+              });
+          };
+const updatePwdDialog = ref(false)
+          const ruleForm=reactive({
+            password:""
+          })
           //退出登陆
           const exitLogin = () => {
             ElMessageBox.confirm("真的要退出登陆吗?", "提示", {
@@ -330,7 +397,10 @@
                 asideMenu,
                 infoRef,
               all_left_menu,
-              exitLogin
+              exitLogin,
+              updatePwd,
+              updatePwdDialog,
+              ruleForm
             };
         },
         mounted() {

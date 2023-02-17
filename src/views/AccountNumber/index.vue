@@ -16,7 +16,7 @@
                     <el-row class="inside-main" style="background: #fff;padding-top: 10px;height: 46px;">
                         <el-col :span="8" style="margin-left: 20px;">
                             <el-form-item label="用户名" size="small">
-                                <el-input v-model="form.num" />
+                                <el-input v-model="form.num" placeholder="请输入用户名"/>
                             </el-form-item>
                         </el-col>
                         <el-col :span="4" style="margin-left: 20px;">
@@ -173,12 +173,12 @@
 </script>
 <style scoped>
     /* 面包屑字体颜色更改 */
-    
+
     .breadcrumbColor>>>.el-breadcrumb__inner {
         color: #000;
     }
     /* 内部header */
-    
+
     .inside-header {
         height: 10px;
         display: flex;
@@ -186,26 +186,26 @@
         align-items: center;
     }
     /* 空心按钮样式 */
-    
+
     .empty-but {
         border: 1px solid #3780b9;
         color: #3780b9;
     }
     /* 实心按钮背景样式 */
-    
+
     .sele-but {
         background: #3780b9;
         border: 0px;
         border-radius: 2px;
         color: white;
     }
-    
+
     .add-but {
         background: #dde5fe;
         color: #3780b9;
     }
     /* 分页 */
-    
+
     .demo-pagination-block {
         display: flex;
         justify-content: flex-end;
