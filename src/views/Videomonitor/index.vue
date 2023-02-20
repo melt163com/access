@@ -16,7 +16,7 @@
                     <el-row class="inside-main" style="background: #fff;padding-top: 10px;height: 46px;">
                         <el-col :span="8" style="margin-left: 20px;">
                             <el-form-item label="检测点名称" size="small">
-                                <el-input v-model="form.monitoring_point_name" />
+                                <el-input v-model="form.monitoring_point_name"  clearable/>
                             </el-form-item>
                         </el-col>
 
@@ -34,8 +34,8 @@
                         <el-table-column align="center" prop="video_storage_address" label="视频存储地址" />
                         <el-table-column align="center" prop="video_duration" label="视频时长" />
                         <el-table-column align="center" label="操作" fixed="right">
-                            <template #default>
-                                <el-button link type="primary" size="small" @click="videoDialog = true">查看视频</el-button>
+                            <template #default="item">
+                                <el-button link type="primary" size="small" @click="lookup(item.row)">查看视频</el-button>
                             </template>
 </el-table-column>
 </el-table>
@@ -45,9 +45,9 @@
 </el-main>
 </el-container>
 <el-dialog center v-model="videoDialog" title="查看视频" width="30%" :before-close="handleClose">
-    <div style="width: 100%;height: 200px;background: palegreen;">
+    <video :src="videos" style="width: 100%;height: 200px;background: palegreen;" autoplay controls loop muted>
 
-    </div>
+    </video>
     <template #footer>
                 <span class="dialog-footer">
                     <el-button @click="videoDialog = false">关闭</el-button>
@@ -63,17 +63,16 @@
         ref,
         onMounted
     } from 'vue'
-    import {
-        Plus
-    } from "@element-plus/icons-vue";
     // 路由
     import {
         useRouter
     } from 'vue-router'
     import {
-        videoAll,
-        videoName
+        query
     } from "@/api/user";
+    import first from "../../assets/video/0.mp4";
+    import second from "../../assets/video/1.mp4";
+    import third from "../../assets/video/2.mp4";
     const videoDialog = ref(false)
     const router = useRouter()
     const name = 'transportIndex'
@@ -81,21 +80,31 @@
     const size = ref("default");
     const form = reactive({
         monitoring_point_name: "",
-
     });
     const tableData = ref([]);
+    const videos = ref("");
     // 查询全部接口
     const selectAll = () => {
-            videoAll().then((res) => {
+            query({},{page:1,num:10}).then((res) => {
                 tableData.value = res.data;
             });
         }
         // 搜索接口
     const select = () => {
-            videoName(form).then((res) => {
+            query(form).then((res) => {
                 tableData.value = res.data;
             })
         }
+    const lookup = (row) =>{
+      let index = row.id%3
+      switch(index){
+        case 0 : videos.value = first; break;
+        case 1 : videos.value = second; break;
+        case 2 : videos.value = third; break;
+        default: videos.value = null;
+      }
+      videoDialog.value = true;
+    }
         // 重置
     const clear = () => {
         form.monitoring_point_name = "",
@@ -107,12 +116,12 @@
 </script>
 <style scoped>
     /* 面包屑字体颜色更改 */
-    
+
     .breadcrumbColor>>>.el-breadcrumb__inner {
         color: #000;
     }
     /* 内部header */
-    
+
     .inside-header {
         height: 10px;
         display: flex;
@@ -120,26 +129,26 @@
         align-items: center;
     }
     /* 空心按钮样式 */
-    
+
     .empty-but {
         border: 1px solid #3780b9;
         color: #3780b9;
     }
     /* 实心按钮背景样式 */
-    
+
     .sele-but {
         background: #3780b9;
         border: 0px;
         border-radius: 2px;
         color: white;
     }
-    
+
     .add-but {
         background: #dde5fe;
         color: #3780b9;
     }
     /* 分页 */
-    
+
     .demo-pagination-block {
         display: flex;
         justify-content: flex-end;

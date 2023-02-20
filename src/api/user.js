@@ -24,19 +24,11 @@ export function Login(query, page) {
         params: query,
     })
 }
-/** 视频管理 **/
-// 查询所有视频信息
-export function videoAll(query, page) {
-    return request({
-        url: '/video/queryAll',
-        method: 'post',
-        params: query,
-    })
-}
+
 // 搜索视频名称接口
-export function videoName(query, page) {
+export function query(query, page) {
     return request({
-        url: "/video/queryByPointName",
+        url: "/video/queryByPointNameOrCameraName",
         method: 'post',
         params: query
     })

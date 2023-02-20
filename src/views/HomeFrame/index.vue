@@ -72,15 +72,10 @@
                 align-items: center;
                 display: flex;
               ">
-                <el-tabs style="margin-left: 60px" v-model="activeName" @tab-click="handleClick">
+                <el-tabs style="margin-left: 60px" v-model="newTab.tab" @tab-click="handleClick">
                     <el-tab-pane v-for="item in tabs" :label="item.fname" :name="item.fid" :key="item.fid">
-                        <div slot="label" class="my-label" :class="activeName === item.fid ? 'tab-active' : ''">
-                            <!-- <span class="key">{{ item.title }}</span> -->
-                            <!-- <span class="value" v-if="item.count">{{
-                      item.count
-                    }}</span> -->
+                        <div slot="label" class="my-label" :class="newTab.tab === item.fid ? 'tab-active' : ''">
                         </div>
-                        <!-- {{ item.id }} -->
                     </el-tab-pane>
                 </el-tabs>
             </div>
@@ -120,29 +115,14 @@
 </div>
 </template>
 <script setup lang="ts">
-    import {
-        ref,onMounted,
-        reactive
-    } from "vue";
-    import {
-        TabsPaneContext,
-        ElMessageBox
-    } from "element-plus";
-    import {
-        ArrowDown,
-        Plus
-    } from "@element-plus/icons-vue";
-    import vehiclefiling from "@/assets/vehiclefiling.png";
-    import dataApplication from "@/assets/dataApplication.png";
-    import {
-        useRouter
-    } from "vue-router";
-    import {
-      getType,getTreeStructure
-    } from "@/api/menu";
+    import { reactive } from "vue";
+    import { TabsPaneContext,ElMessageBox} from "element-plus";
+    import { useRouter } from "vue-router";
+    import {getType,getTreeStructure} from "@/api/menu";
     const router = useRouter();
     //当前选项卡
     const activeTabName = "home";
+    let newTab = reactive({tab:1});
     // 左侧菜单栏假数据
     let asideMenu = reactive({
         name:'',
@@ -255,28 +235,28 @@
         console.log(key, keyPath);
     };
     // 首次进入选中的名称
-    const activeName = reactive(1);
+    const activeName = reactive({tab:1});
     // tabs循环数据
     let tabs = [
       {
-      fname: "视频监控",
-      value: "first",
-      fid: 1,
+        fid: 1,
+        fname: "视频监控",
+        value: "first",
     }, {
-      fname: "移动污染",
-      value: "second",
-      fid: 2,
+        fid: 2,
+        fname: "移动污染",
+        value: "second",
     }, {
-      fname: "企业环保",
-      value: "third",
-      fid: 3,
+        fid: 3,
+        fname: "企业环保",
+        value: "third",
     }, {
-      fname: "账号管理",
-      value: "four",
-      fid: 4,
+        fid: 4,
+        fname: "账号管理",
+        value: "four",
     },
     ];
-    let newTab = reactive({tab:1});
+
     const handleClick = (tab, event) => {
        newTab.tab = tab.props.name;
        console.log(newTab)
