@@ -10,7 +10,7 @@
             <el-breadcrumb-item>车辆备案</el-breadcrumb-item>
             <el-breadcrumb-item>运输车辆备案</el-breadcrumb-item>
             <el-breadcrumb-item class="breadcrumbColor"
-              >添加运输车辆备案</el-breadcrumb-item
+              >修改运输车辆备案</el-breadcrumb-item
             >
           </el-breadcrumb>
         </div>
@@ -441,8 +441,7 @@
           <el-row>
             <div style="margin: 10px auto 20px">
               <el-col>
-                <el-button class="sele-but" @click="insert()">保存</el-button>
-
+                <el-button class="sele-but" @click="update()">修改</el-button>
                 <el-button class="empty-but" @click="close()">取消</el-button>
               </el-col>
             </div>
@@ -473,11 +472,9 @@ export default {
     onMounted(() => {
       // form = sessionStorage.getItem("userObj");
       // console.log(form);
-      console.log(route.params);
-      console.log(route);
       // console.log(router.params);
     });
-    let form = reactive({});
+    let form = reactive(JSON.parse(sessionStorage.getItem("userObj")));
     // 跳转回列表页
     const close = () => {
       sessionStorage.removeItem("userObj");
@@ -485,8 +482,8 @@ export default {
         path: "/transportIndex",
       });
     };
-    //新增接口
-    const insert = () => {
+    // console.log(form, "updateForm updateForm updateForm updateForm ");
+    const update = () => {
       var d = new Date(form.fzrq);
       form.fzrq =
         d.getFullYear() +
@@ -526,23 +523,24 @@ export default {
         c.getMinutes() +
         ":" +
         c.getSeconds();
-      if (form.zcrq == "NaN-NaN-NaN NaN:NaN:NaN") {
+      if (form.zcrq == "1970-1-1 8:0:0") {
         form.zcrq = "";
       }
-      if (form.obdanzhrq == "NaN-NaN-NaN NaN:NaN:NaN") {
+      if (form.obdanzhrq == "1970-1-1 8:0:0") {
         form.obdanzhrq = "";
       }
-      if (form.fzrq == "NaN-NaN-NaN NaN:NaN:NaN") {
+      if (form.fzrq == "1970-1-1 8:0:0") {
         form.fzrq = "";
       }
-      Add(form).then((res) => {
+      updateData(form).then((res) => {
         if (res.code == 200) {
+          sessionStorage.removeItem("userObj");
           router.push("/transportIndex");
+        } else {
+          ElMessage.error("修改数据失败");
         }
       });
     };
-
-    // console.log(form, "updateForm updateForm updateForm updateForm ");
     // const imageUrl = ref('')
     // 文件上传（照片）
     const handleAvatarSuccess = (response, uploadFile) => {
@@ -562,7 +560,7 @@ export default {
         label: "否",
       },
     ];
-    return { form, insert, close };
+    return { form, update, close };
   },
 
   methods: {

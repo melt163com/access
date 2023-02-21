@@ -9,7 +9,7 @@
             <el-breadcrumb-item>车辆备案</el-breadcrumb-item>
             <el-breadcrumb-item>场内车辆备案</el-breadcrumb-item>
             <el-breadcrumb-item class="breadcrumbColor"
-              >场内车辆备案详情</el-breadcrumb-item
+              >修改场内车辆备案</el-breadcrumb-item
             >
           </el-breadcrumb>
         </div>
@@ -41,12 +41,17 @@
             </el-col>
             <el-col :span="7">
               <el-form-item label="车辆颜色">
-                <el-input
-                  style="width: 220px"
+                <el-select
                   v-model="form.licensePlateColor"
-                  class="w-50 m-2"
-                  placeholder="请填写"
-                />
+                  placeholder="请选择"
+                  style="width: 220px"
+                >
+                  <el-option label="蓝色" value="101" />
+                  <el-option label="绿色" value="102" />
+                  <el-option label="白色" value="103" />
+                  <el-option label="黄色" value="104" />
+                  <el-option label="黑色" value="105" />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="7">
@@ -83,11 +88,11 @@
             </el-col>
             <el-col :span="7">
               <el-form-item label="注册日期">
-                <el-input
-                  style="width: 220px"
+                <el-date-picker
                   v-model="form.registrationDate"
-                  class="w-50 m-2"
-                  placeholder="请填写"
+                  type="date"
+                  placeholder="请选择"
+                  style="width: 220px"
                 />
               </el-form-item>
             </el-col>
@@ -105,22 +110,32 @@
             </el-col>
             <el-col :span="7">
               <el-form-item label="排放阶段">
-                <el-input
-                  style="width: 220px"
+                <el-select
                   v-model="form.vehicleEmissions"
-                  class="w-50 m-2"
-                  placeholder="请填写"
-                />
+                  style="width: 220px"
+                  placeholder="请选择"
+                >
+                  <el-option label="国I" value="1001" />
+                  <el-option label="国II" value="1002" />
+                  <el-option label="国III" value="1003" />
+                  <el-option label="国IV" value="1004" />
+                  <el-option label="国V" value="1005" />
+                  <el-option label="国VI" value="1006" />
+                  <el-option label="普通" value="1007" />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="7">
               <el-form-item label="燃料类型">
-                <el-input
-                  style="width: 220px"
+                <el-select
                   v-model="form.vehicleFuel"
-                  class="w-50 m-2"
-                  placeholder="请填写"
-                />
+                  style="width: 220px"
+                  placeholder="请选择"
+                >
+                  <el-option label="汽油" value="2001" />
+                  <el-option label="柴油" value="2002" />
+                  <el-option label="航煤" value="2003" />
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -147,12 +162,15 @@
             </el-col>
             <el-col :span="7">
               <el-form-item label="使用性质">
-                <el-input
-                  style="width: 220px"
+                <el-select
                   v-model="form.natureOfVehicleUse"
-                  class="w-50 m-2"
-                  placeholder="请填写"
-                />
+                  placeholder="请选择"
+                  style="width: 220px"
+                >
+                  <el-option label="非营运" value="3001" />
+                  <el-option label="营运" value="3002" />
+                  <el-option label="货运" value="3003" />
+                </el-select>
               </el-form-item>
             </el-col>
           </el-row>
@@ -180,21 +198,22 @@
           <el-row :gutter="20">
             <el-col :span="9">
               <el-form-item label-width="200px" label="是否安装OBD">
-                <el-input
-                  style="width: 220px"
+                <el-select
                   v-model="form.obdInstallation"
-                  class="w-50 m-2"
-                  placeholder="请填写"
-                />
+                  style="width: 220px"
+                  placeholder="请选择"
+                >
+                  <el-option label="是" value="1" />
+                  <el-option label="否" value="2" />
+                </el-select>
               </el-form-item>
             </el-col>
             <el-col :span="7">
-              <el-form-item label="OBD安装日期"
-                ><el-input
-                  style="width: 220px"
+              <el-form-item label="OBD安装日期">
+                <el-date-picker
                   v-model="form.obdInstallationDate"
-                  class="w-50 m-2"
-                  placeholder="请填写"
+                  type="date"
+                  placeholder="请选择"
                 />
               </el-form-item>
             </el-col>
@@ -256,6 +275,9 @@
           <el-row :gutter="20">
             <div style="margin: 10px auto 20px">
               <el-col>
+                <el-button class="sele-but" @click="update(ruleFormRef)"
+                  >修改</el-button
+                >
                 <el-button class="empty-but" @click="close()">取消</el-button>
               </el-col>
             </div>
@@ -270,7 +292,7 @@
 import { reactive, ref } from "vue";
 
 //接口
-import { insertOnsite } from "@/api/mobilePollution";
+import { updateOnsite } from "@/api/mobilePollution";
 import { ElMessage } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
 
@@ -278,13 +300,78 @@ import { UploadProps } from "element-plus";
 // 路由
 import { useRouter } from "vue-router";
 const router = useRouter();
-let form = reactive(JSON.parse(sessionStorage.getItem("userObj")));
 // 跳转回列表页
 const close = () => {
   sessionStorage.removeItem("userObj");
   router.push({
     path: "/onsiteIndex",
   });
+};
+//修改接口
+const update = () => {
+  if (form.environmentalProtectionGrade == "") {
+    ElMessage.error("请填写环保等级编码内部管理号牌");
+  } else {
+    updateOnsite(form).then((res) => {
+      if (res.code == 200) {
+        sessionStorage.removeItem("userObj");
+        ElMessage.success("保存数据成功");
+        router.push({
+          path: "/onsiteIndex",
+        });
+      } else {
+        ElMessage.error("保存数据失败");
+      }
+    });
+  }
+};
+let form = reactive(JSON.parse(sessionStorage.getItem("userObj")));
+// 校验
+const rules = {
+  environmentalProtectionGrade: [
+    {
+      required: true,
+      message: "请填写环保等级编码内部管理号牌",
+      trigger: "blur",
+    },
+  ],
+};
+// 下拉选择 - 是否安装OBD
+const value = ref("");
+
+const options = [
+  {
+    value: "Option1",
+    label: "是",
+  },
+  {
+    value: "Option2",
+    label: "否",
+  },
+];
+
+// 时间选择器
+const value1 = ref("");
+const value2 = ref("");
+// do not use same name with ref
+const onSubmit = () => {
+  console.log("submit!");
+};
+// const imageUrl = ref('')
+// 文件上传（照片）
+// const handleAvatarSuccess = (response, uploadFile) => {
+//   imageUrl.value = URL.createObjectURL();
+// };
+
+const beforeAvatarUpload = (rawFile) => {
+  if (rawFile.type !== "image/jpeg") {
+    ElMessage.error("Avatar picture must be JPG format!");
+    return false;
+  } else if (rawFile.size / 1024 / 1024 > 2) {
+    ElMessage.error("Avatar picture size can not exceed 2MB!");
+    return false;
+  }
+  return true;
 };
 </script>
 <style scoped>

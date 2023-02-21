@@ -51,12 +51,19 @@ const routes: Array<RouteRecordRaw> = [
         component: () =>
           import("../views/MobilePollution/transport-vehicle/addPage.vue"),
       },
+      // 移动污染-车辆备案-运输车辆修改页面
+      {
+        path: "transportUpdate",
+        name: "transportUpdate",
+        component: () =>
+          import("../views/MobilePollution/transport-vehicle/update.vue"),
+      },
       // 移动污染-车辆备案-运输车辆详情页面
       {
         path: "transportDetail",
         name: "transportDetail",
         component: () =>
-          import("../views/MobilePollution/transport-vehicle/detailPage.vue"),
+          import("../views/MobilePollution/transport-vehicle/detail.vue"),
       },
       // 移动污染-车辆备案-场内车辆列表页
       {
@@ -79,6 +86,14 @@ const routes: Array<RouteRecordRaw> = [
         component: () =>
           import("../views/MobilePollution/onSite-vehicle/detailPage.vue"),
       },
+      // 移动污染-车辆备案-场内车辆修改页
+      {
+        path: "onsiteUpdate",
+        name: "onsiteUpdate",
+        component: () =>
+          import("../views/MobilePollution/onSite-vehicle/updatePage.vue"),
+      },
+
       // 移动污染-车辆备案-非道路移动机械列表页
       {
         path: "nonRoadIndex",
@@ -208,7 +223,7 @@ const routes: Array<RouteRecordRaw> = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
 });
 
 export default router;
