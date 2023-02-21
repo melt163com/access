@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Loading } from "element-plus";
+import {ELMessage, ELLoading } from "element-plus";
 import { getToken } from '@/utils/auth'
 let downloadLoadingInstance;
 
@@ -56,7 +56,7 @@ service.interceptors.response.use(res => {
   //   }).catch(() => {})
   //   return Promise.reject('无效的会话，或者会话已过期，请重新登录。')
   // } else if (code === 500) {
-  //   Message({
+  //   ELMessage({
   //     message: res.data.msg,
   //     type: 'error'
   //   })
@@ -80,7 +80,7 @@ error => {
   } else if (message.includes('Request failed with status code')) {
     message = '系统接口' + message.substr(message.length - 3) + '异常'
   }
-  // Message({
+  // ELMessage({
   //   message: message,
   //   type: 'error',
   //   duration: 5 * 1000
@@ -91,7 +91,7 @@ error => {
 
 // 通用下载方法
 export function download(url, params, filename) {
-  downloadLoadingInstance = Loading.service({ text: '正在下载数据，请稍后', spinner: 'el-icon-loading', background: 'rgba(0, 0, 0, 0.7)' })
+  downloadLoadingInstance = ELLoading.service({ text: '正在下载数据，请稍后', spinner: 'el-icon-loading', background: 'rgba(0, 0, 0, 0.7)' })
   return service.post(url, params, {
     transformRequest: [(params) => { return tansParams(params) }],
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -103,7 +103,7 @@ export function download(url, params, filename) {
     downloadLoadingInstance.close()
   }).catch((r) => {
     console.error(r)
-    // Message.error('下载文件出现错误，请联系管理员！')
+    ELMessage.error('下载文件出现错误，请联系管理员！')
     downloadLoadingInstance.close()
   })
 }

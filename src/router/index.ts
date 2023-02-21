@@ -15,10 +15,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     // path: "/",
     // name: "Layout",
-    // component: () => import("../views/HomeFrame/index.vue"),
+    component: () => import("../views/HomeFrame/index.vue"),
     path: "/",
     name: "Layout",
-    component: () => import("../views/HomeFrame/MainLayout.vue"),
+    // component: () => import("../views/HomeFrame/MainLayout.vue"),
     children: [
       {
         // 这里不设置值，是把main作为默认页面
