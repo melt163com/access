@@ -146,7 +146,7 @@
               <el-form-item label="车牌颜色">
                 <el-input
                   style="width: 220px"
-                  v-model="form.licensePlateColor"
+                  :value="form.licensePlateColor?.cp_type"
                   class="w-50 m-2"
                 />
               </el-form-item>
@@ -157,7 +157,7 @@
               <el-form-item label="车型描述">
                 <el-input
                   style="width: 220px"
-                  v-model="form.vehicleType"
+                  :value="form.vehicleType?.cx_type"
                   class="w-50 m-2"
                 />
               </el-form-item>
@@ -246,7 +246,7 @@
               <el-form-item label="燃料类型">
                 <el-input
                   style="width: 220px"
-                  v-model="form.vehicleFuel"
+                  :value="form.vehicleFuel?.clrl_type"
                   class="w-50 m-2"
                 />
               </el-form-item>
@@ -255,7 +255,7 @@
               <el-form-item label="排放阶段">
                 <el-input
                   style="width: 220px"
-                  v-model="form.vehicleEmissions"
+                  :value="form.vehicleEmissions?.clpf_type"
                   class="w-50 m-2"
                 />
               </el-form-item>
@@ -284,7 +284,7 @@
               <el-form-item label="使用性质">
                 <el-input
                   style="width: 220px"
-                  v-model="form.natureOfVehicleUse"
+                  :value="form.natureOfVehicleUse?.clsyxz_type"
                   class="w-50 m-2"
                 />
               </el-form-item>
@@ -300,12 +300,12 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="注册日期">
-                <el-input style="width: 650px" v-model="form.zcrq" />
+                <el-input style="width: 650px" :value="$moment(form.zcrq).format('YYYY-MM-DD HH:mm:ss')" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="发证日期">
-                <el-input style="width: 650px" v-model="form.fzrq" />
+                <el-input style="width: 650px" :value="$moment(form.zcrq).format('YYYY-MM-DD HH:mm:ss')" />
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -375,7 +375,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="发证日期">
-                <el-input style="width: 650px" v-model="form.obdanzhrq" />
+                <el-input style="width: 650px" :value="$moment(form.obdanzhrq).format('YYYY-MM-DD HH:mm:ss')" />
               </el-form-item>
             </el-col>
           </el-row>

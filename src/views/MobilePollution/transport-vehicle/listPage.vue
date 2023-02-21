@@ -136,13 +136,11 @@
               </template>
             </el-table-column>
             <el-table-column align="center" prop="sj_name" label="司机" />
-
             <el-table-column align="center" prop="cl_cph" label="车牌" />
             <el-table-column
               align="center"
               prop="vehiclePhoto"
-              label="车辆照片"
-            >
+              label="车辆照片">
               <template #default="scope">
                 <el-button link @click="list">{{
                   scope.row.vehiclePhoto
@@ -186,7 +184,7 @@
             />
             <el-table-column align="center" prop="clpf_type" label="排放标准">
               <template #default="scope">
-                <span>{{ scope.row.vehicleEmissions }}</span>
+                <span>{{ scope.row.vehicleEmissions?.clpf_type }}</span>
               </template>
             </el-table-column>
             <el-table-column align="center" prop="typeOfAcces" label="出入类型">

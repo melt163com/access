@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Message, Loading } from "element-plus";
+import { Loading } from "element-plus";
 import { getToken } from '@/utils/auth'
 let downloadLoadingInstance;
 
@@ -16,8 +16,8 @@ const service = axios.create({
 service.interceptors.request.use(config => {
   // 是否需要设置 token
   const isToken = (config.headers || {}).isToken === false
-  const userid = sessionStorage.getItem('user-id')
-  const username = sessionStorage.getItem('username')
+  // const userid = sessionStorage.getItem('user-id')
+  // const username = sessionStorage.getItem('username')
   if (getToken() && !isToken) {
     config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
     //config.headers['user-id'] = userid // 让每个请求携带自定义token 请根据实际情况自行修改
@@ -99,11 +99,11 @@ export function download(url, params, filename) {
   }).then((data) => {
     const content = data
     const blob = new Blob([content])
-    saveAs(blob, filename)
+    // saveAs(blob, filename)
     downloadLoadingInstance.close()
   }).catch((r) => {
     console.error(r)
-    Message.error('下载文件出现错误，请联系管理员！')
+    // Message.error('下载文件出现错误，请联系管理员！')
     downloadLoadingInstance.close()
   })
 }

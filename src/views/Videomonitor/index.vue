@@ -13,16 +13,16 @@
             </el-header>
             <el-main>
                 <div class="inside-main-box">
-                    <el-row class="inside-main" style="background: #fff;padding-top: 10px;height: 46px;">
-                        <el-col :span="8" style="margin-left: 20px;">
-                            <el-form-item label="检测点名称" size="small">
+                    <el-row class="inside-main" style="background: #fff;padding-top: 10px;">
+                        <el-col :span="6" style="margin-left: 20px;">
+                            <el-form-item label="检测点名称" >
                                 <el-input v-model="form.monitoring_point_name"  clearable/>
                             </el-form-item>
                         </el-col>
 
                         <el-col :span="4" style="margin-left: 20px;">
-                            <el-button size="small" class="sele-but" @click="select">查询</el-button>
-                            <el-button size="small" class="empty-but" @click="clear">重置</el-button>
+                            <el-button class="sele-but" @click="select">查询</el-button>
+                            <el-button class="empty-but" @click="clear">重置</el-button>
                         </el-col>
                     </el-row>
                 </div>
@@ -45,7 +45,7 @@
 </el-main>
 </el-container>
 <el-dialog center v-model="videoDialog" title="查看视频" width="30%" :before-close="handleClose">
-    <video :src="videos" style="width: 100%;height: 200px;background: palegreen;" autoplay controls loop muted>
+    <video :src="videos" style="width: 100%;height: 200px;" autoplay controls loop muted>
 
     </video>
     <template #footer>
@@ -60,7 +60,7 @@
 <script setup lang="ts">
     import {
         reactive,
-        ref,
+        ref,getCurrentInstance,
         onMounted
     } from 'vue'
     // 路由
@@ -111,7 +111,8 @@
             selectAll()
     }
     onMounted(() => {
-        selectAll();
+      // const {that} = getCurrentInstance();
+      selectAll();
     });
 </script>
 <style scoped>
