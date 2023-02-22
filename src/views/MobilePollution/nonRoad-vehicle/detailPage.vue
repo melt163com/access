@@ -1,145 +1,273 @@
 <template>
-    <div>
-        <!-- 车辆进出登记 -->
-        <el-container>
-            <el-header class="inside-header">
-                <div>
-                    <!-- 面包屑 -->
-                    <el-breadcrumb separator=">">
-                        <el-breadcrumb-item>移动污染源</el-breadcrumb-item>
-                        <el-breadcrumb-item>车辆备案</el-breadcrumb-item>
-                        <el-breadcrumb-item>非道路移动机械备案</el-breadcrumb-item>
-                        <el-breadcrumb-item class="breadcrumbColor">详情</el-breadcrumb-item>
-                    </el-breadcrumb>
-                </div>
-            </el-header>
-            <el-main style="margin-top: -30px;">
-                <div style="width: 100%;background: #fff;">
-                    <!-- 车辆进出登记 -->
-                    <div class="box-one">
-                        <div style="width: 100%;display: flex;">
-                            <table>
-                                <tr>
-                                    <td class="a">环保登记编码:</td>
-                                    <td class="b">xxxx</td>
-                                    <td class="a">机械环保代码:</td>
-                                    <td class="b">xxx</td>
-                                    <td class="a">机械名称:</td>
-                                    <td class="b">xxxx</td>
-                                </tr>
-                                <tr>
-                                    <td>排放阶段:</td>
-                                    <td>xxxxx</td>
-                                    <td>发动机号码:</td>
-                                    <td>xxxxx</td>
-                                    <td>注册日期:</td>
-                                    <td>xxxxx</td>
-                                </tr>
-                                <tr>
-                                    <td>所属企业编码:</td>
-                                    <td>xxxxx</td>
-                                    <td>所属企业名称:</td>
-                                    <td>xxxxx</td>
-                                </tr>
-                                <tr>
-                                    <td>运输货物:</td>
-                                    <td>xxxxx</td>
-                                    <td>运输重量/吨:</td>
-                                    <td>xxxx</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div style="display:flex;justify-content: center;margin: 250px 0 20px 0;">
-                        <el-button class="sele-but" @click='close()'>关闭</el-button>
-                    </div>
-                </div>
-
-            </el-main>
-        </el-container>
-    </div>
+  <div>
+    <el-container>
+      <el-header class="inside-header">
+        <div>
+          <!-- 面包屑 -->
+          <el-breadcrumb separator=">">
+            <el-breadcrumb-item>移动污染源</el-breadcrumb-item>
+            <el-breadcrumb-item>车辆备案</el-breadcrumb-item>
+            <el-breadcrumb-item>非道路移动机械备案</el-breadcrumb-item>
+            <el-breadcrumb-item class="breadcrumbColor"
+              >非道路移动机械备案详情</el-breadcrumb-item
+            >
+          </el-breadcrumb>
+        </div>
+      </el-header>
+      <el-main style="margin-top: -20px">
+        <el-form
+          label-width="110px"
+          label-position="left"
+          style="background: white; padding: 20px"
+          :model="form"
+          :rules="rules"
+        >
+          <el-row :gutter="20">
+            <el-col :span="8">
+              <el-form-item
+                style="margin-left: -10px; margin-right: 10px"
+                label="环保登记编码"
+                required="true"
+                prop="environmentalProtectionRegistrationCode"
+              >
+                <el-input
+                  style="width: 220px; margin-left: 10px"
+                  v-model="form.environmentalProtectionRegistrationCode"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item
+                style="margin-left: -10px; margin-right: 10px"
+                label="机械环保代码"
+                required="true"
+                prop="mechanicalEnvironmentalProtectionCode"
+              >
+                <el-input
+                  style="width: 220px; margin-left: 10px"
+                  v-model="form.mechanicalEnvironmentalProtectionCode"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="机械名称">
+                <el-input
+                  style="width: 220px"
+                  v-model="form.machineName"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="8">
+              <el-form-item
+                style="margin-left: -10px; margin-right: 10px"
+                label="排放阶段"
+                required="true"
+                prop="vehicleEmissions"
+              >
+                <el-input
+                  style="width: 205px; margin-left: 10px"
+                  v-model="form.vehicleEmissions"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="发动机号码">
+                <el-input
+                  style="width: 205px"
+                  v-model="form.engineNumber"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="注册日期">
+                <el-input
+                  style="width: 205px"
+                  v-model="form.registrationDate"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="8">
+              <el-form-item label="所属企业编码">
+                <el-input
+                  style="width: 205px"
+                  v-model="form.enterpriseCode"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="所属企业名称">
+                <el-input
+                  style="width: 205px"
+                  v-model="form.nameOfAffiliatedEnterprise"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="8">
+              <el-form-item label="运输货物">
+                <el-input
+                  style="width: 205px"
+                  v-model="form.freight"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="运输重量/吨">
+                <el-input
+                  style="width: 205px"
+                  v-model="form.transportWeight"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="3" style="margin-left: 25px">
+              <div class="UPtsxt"><span>车辆照片(正面)</span></div>
+              <el-upload
+                class="avatar-uploader"
+                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload"
+              >
+                <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+                <el-icon v-else class="avatar-uploader-icon">
+                  <Plus />
+                </el-icon>
+              </el-upload>
+            </el-col>
+            <el-col :span="3" style="margin-left: 25px">
+              <div class="UPtsxt"><span>车辆铭牌照片</span></div>
+              <el-upload
+                class="avatar-uploader"
+                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload"
+              >
+                <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+                <el-icon v-else class="avatar-uploader-icon">
+                  <Plus />
+                </el-icon>
+              </el-upload>
+            </el-col>
+            <el-col :span="3" style="margin-left: 25px">
+              <div class="UPtsxt"><span>行驶证(正面)</span></div>
+              <el-upload
+                class="avatar-uploader"
+                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload"
+              >
+                <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+                <el-icon v-else class="avatar-uploader-icon">
+                  <Plus />
+                </el-icon>
+              </el-upload>
+            </el-col>
+          </el-row>
+          <el-row :gutter="20">
+            <el-col :span="20" style="margin: 18px 25px">
+              <el-tag class="ml-2" type="danger"
+                >图片操作为本地操作,点击添加、删除或预览图片,完成后提交上传数据。</el-tag
+              >
+            </el-col>
+          </el-row>
+          <el-row>
+            <div style="margin: 10px auto 20px">
+              <el-col>
+                <el-button class="empty-but" @click="close()">返回</el-button>
+              </el-col>
+            </div>
+          </el-row>
+        </el-form>
+      </el-main>
+    </el-container>
+  </div>
 </template>
-<script setup lang="ts">
-    import {
-        reactive,
-        ref
-    } from 'vue'
-    // 路由
-    import {
-        useRouter
-    } from 'vue-router'
-    const router = useRouter()
-        // 跳转回列表页
+<script>
+import { reactive, ref } from "vue";
+import { UploadProps } from "element-plus";
+// 路由
+import { useRouter } from "vue-router";
+export default {
+  setup() {
+    const router = useRouter();
+    // 跳转回列表页
     const close = () => {
-        router.push({
-            path: '/nonRoadIndex',
-            query: ''
-        })
-    }
+      sessionStorage.removeItem("userObj");
+      router.push({
+        path: "/nonRoadIndex",
+      });
+    };
+    let form = reactive(JSON.parse(sessionStorage.getItem("userObj")));
+    return { form, close };
+  },
+};
 </script>
 <style scoped>
-    /* 面包屑字体颜色更改 */
-    
-    .breadcrumbColor>>>.el-breadcrumb__inner {
-        color: #000;
-    }
-    /* 横条蓝条样式 */
-    
-    .head-bar {
-        width: 100%;
-        height: 40px;
-        display: flex;
-    }
-    
-    .head-bar-main {
-        width: 3px;
-        height: 20px;
-        opacity: 1;
-        background: #3780B9;
-        margin-right: 11px;
-    }
-    /* 车辆进出登记表大盒子 */
-    
-    .box-one {
-        display: flex;
-        padding: 4px;
-    }
-    /* 车辆及司机信息大盒子 */
-    
-    .box-two {
-        display: flex;
-        padding: 4px;
-    }
-    
-    table {
-        width: 100%;
-        padding: 10px;
-    }
-    
-    tr {
-        padding: 10px;
-        list-style: none;
-        height: 40px;
-    }
-    
-    .a {
-        width: 900px;
-    }
-    
-    .b {
-        width: 900px;
-    }
-    
-    .c {
-        width: 500px;
-    }
-    /* 实心按钮背景样式 */
-    
-    .sele-but {
-        background: #3780b9;
-        border: 0px;
-        border-radius: 2px;
-        color: white;
-        margin-bottom: 20px;
-    }
+/* 面包屑字体颜色更改 */
+
+.breadcrumbColor >>> .el-breadcrumb__inner {
+  color: #000;
+}
+/* 文件上传文字样式 */
+
+.UPtsxt {
+  width: 120px;
+  height: 30px;
+}
+/* 文件上传样式 */
+
+.avatar-uploader {
+  width: 120px;
+  height: 120px;
+  background-color: #e5f4ff;
+}
+
+.el-icon.avatar-uploader-icon {
+  font-size: 28px;
+  color: #3780b9;
+  width: 120px;
+  height: 120px;
+  text-align: center;
+}
+/* 空心按钮样式 */
+
+.empty-but {
+  border: 1px solid #3780b9;
+  color: #3780b9;
+}
+/* 实心按钮背景样式 */
+
+.sele-but {
+  background: #3780b9;
+  border: 0px;
+  border-radius: 2px;
+  color: white;
+}
 </style>

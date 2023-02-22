@@ -15,10 +15,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     // path: "/",
     // name: "Layout",
-    component: () => import("../views/HomeFrame/index.vue"),
+    // component: () => import("../views/HomeFrame/index.vue"),
     path: "/",
     name: "Layout",
-    // component: () => import("../views/HomeFrame/MainLayout.vue"),
+    component: () => import("../views/HomeFrame/MainLayout.vue"),
     children: [
       {
         // 这里不设置值，是把main作为默认页面
@@ -114,6 +114,13 @@ const routes: Array<RouteRecordRaw> = [
         name: "nonRoadDetail",
         component: () =>
           import("../views/MobilePollution/nonRoad-vehicle/detailPage.vue"),
+      },
+      // 移动污染-车辆备案-非道路移动机械修改页
+      {
+        path: "nonRoadUpdate",
+        name: "nonRoadUpdate",
+        component: () =>
+          import("../views/MobilePollution/nonRoad-vehicle/updatePage.vue"),
       },
       // 移动污染-数据应用-车辆备案查询列表页
       {

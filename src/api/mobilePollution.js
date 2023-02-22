@@ -1,4 +1,4 @@
-/**移动污染 车辆备案**/
+/**移动污染 车辆备案and数据应用**/
 
 import request from "@/utils/request";
 
@@ -86,6 +86,87 @@ export function insertOnsite(query, page) {
 export function updateOnsite(query, page) {
   return request({
     url: "/onsitevehicles/updateonsitevehicles",
+    method: "post",
+    data: query,
+    params: page,
+  });
+}
+
+//场内车辆 --删除接口
+export function deleteOnsite(query, page) {
+  return request({
+    url: "/onsitevehicles/deleteonsitevehicles",
+    method: "post",
+    data: query,
+    params: page,
+  });
+}
+
+//非道路移动机械 --查询所有接口
+export function selectAllRoad(query, page) {
+  return request({
+    url: "/noMobileMachinery/selectnoMobileMachinery",
+    method: "post",
+    data: query,
+    params: page,
+  });
+}
+
+//非道路移动机械 --根据条件查询接口
+export function selectQueryRoad(query, page) {
+  return request({
+    url: "/noMobileMachinery/fuzzyQueryselectnoMobileMachinery",
+    method: "post",
+    data: query,
+    params: page,
+  });
+}
+
+//非道路移动机械 --新增接口
+export function insertRoad(query, page) {
+  return request({
+    url: "/noMobileMachinery/insertnoMobileMachinery",
+    method: "post",
+    data: query,
+    params: page,
+  });
+}
+
+//非道路移动机械 --删除接口
+export function deleteRoad(query, page) {
+  return request({
+    url: "/noMobileMachinery/deletenoMobileMachinery",
+    method: "post",
+    data: query,
+    params: page,
+  });
+}
+
+//非道路移动机械 --修改接口
+export function updateRoad(query, page) {
+  return request({
+    url: "/noMobileMachinery/updatenoMobileMachinery",
+    method: "post",
+    data: query,
+    params: page,
+  });
+}
+
+/**移动污染 数据应用**/
+//车辆进出台账 --查询所有接口
+export function selectAllBook(query, page) {
+  return request({
+    url: "/vehicleAccount/selectvehicleAccount",
+    method: "post",
+    data: query,
+    params: page,
+  });
+}
+
+//车辆进出台账 --根据条件查询
+export function selectQueryBook(query, page) {
+  return request({
+    url: "/vehicleAccount/fuzzyQueryselectvehicleAccount",
     method: "post",
     data: query,
     params: page,

@@ -33,6 +33,7 @@
               >
                 <el-input
                   style="width: 220px; margin-left: 10px"
+                  required="true"
                   v-model="form.environmentalProtectionGrade"
                   class="w-50 m-2"
                   placeholder="请填写"
@@ -256,7 +257,7 @@
           <el-row :gutter="20">
             <div style="margin: 10px auto 20px">
               <el-col>
-                <el-button class="empty-but" @click="close()">取消</el-button>
+                <el-button class="empty-but" @click="close()">返回</el-button>
               </el-col>
             </div>
           </el-row>
@@ -268,12 +269,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-
-//接口
-import { insertOnsite } from "@/api/mobilePollution";
-import { ElMessage } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
-
 import { UploadProps } from "element-plus";
 // 路由
 import { useRouter } from "vue-router";

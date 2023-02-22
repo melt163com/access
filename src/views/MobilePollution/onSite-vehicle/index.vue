@@ -184,7 +184,13 @@
                   @click="update(scope.row)"
                   >修改</el-button
                 >
-                <el-button link type="primary" size="small">删除</el-button>
+                <el-button
+                  link
+                  type="primary"
+                  size="small"
+                  @click="delect(scope.row)"
+                  >删除</el-button
+                >
               </template>
             </el-table-column>
           </el-table>
@@ -209,7 +215,11 @@
 import { reactive, ref, onMounted } from "vue";
 import { Plus, UploadFilled } from "@element-plus/icons-vue";
 //接口导入
-import { selectOnsiteAll, selectOnsiteQuery } from "@/api/mobilePollution";
+import {
+  deleteOnsite,
+  selectOnsiteAll,
+  selectOnsiteQuery,
+} from "@/api/mobilePollution";
 // 路由
 import { useRouter } from "vue-router";
 // 文件导入
@@ -271,6 +281,22 @@ export default {
         }
       });
     };
+    //删除
+    const delect = (row) => {
+      let onSsiteVehicleFilingForm_id = JSON.stringify(
+        row.onSsiteVehicleFilingForm_id
+      );
+      deleteOnsite({
+        onSsiteVehicleFilingForm_id,
+      }).then((res) => {
+        if (res.code == 200) {
+          select();
+          console.log(res, "333333333333333333333");
+        } else {
+          console.log("删除失败");
+        }
+      });
+    };
     // 导入
     const fileList = ref([
       {
@@ -308,6 +334,7 @@ export default {
       select,
       selectQuery,
       addPage,
+      delect,
       update,
       detailPage,
       exportExcel,

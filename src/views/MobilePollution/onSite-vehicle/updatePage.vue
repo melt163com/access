@@ -46,11 +46,11 @@
                   placeholder="请选择"
                   style="width: 220px"
                 >
-                  <el-option label="蓝色" value="101" />
-                  <el-option label="绿色" value="102" />
-                  <el-option label="白色" value="103" />
-                  <el-option label="黄色" value="104" />
-                  <el-option label="黑色" value="105" />
+                  <el-option label="蓝色" value="蓝色" />
+                  <el-option label="绿色" value="绿色" />
+                  <el-option label="白色" value="白色" />
+                  <el-option label="黄色" value="黄色" />
+                  <el-option label="黑色" value="黑色" />
                 </el-select>
               </el-form-item>
             </el-col>
@@ -115,13 +115,13 @@
                   style="width: 220px"
                   placeholder="请选择"
                 >
-                  <el-option label="国I" value="1001" />
-                  <el-option label="国II" value="1002" />
-                  <el-option label="国III" value="1003" />
-                  <el-option label="国IV" value="1004" />
-                  <el-option label="国V" value="1005" />
-                  <el-option label="国VI" value="1006" />
-                  <el-option label="普通" value="1007" />
+                  <el-option label="国I" value="国I" />
+                  <el-option label="国II" value="国II" />
+                  <el-option label="国III" value="国III" />
+                  <el-option label="国IV" value="国IV" />
+                  <el-option label="国V" value="国V" />
+                  <el-option label="国VI" value="国VI" />
+                  <el-option label="普通" value="普通" />
                 </el-select>
               </el-form-item>
             </el-col>
@@ -132,9 +132,9 @@
                   style="width: 220px"
                   placeholder="请选择"
                 >
-                  <el-option label="汽油" value="2001" />
-                  <el-option label="柴油" value="2002" />
-                  <el-option label="航煤" value="2003" />
+                  <el-option label="汽油" value="汽油" />
+                  <el-option label="柴油" value="柴油" />
+                  <el-option label="航煤" value="航煤" />
                 </el-select>
               </el-form-item>
             </el-col>
@@ -167,9 +167,9 @@
                   placeholder="请选择"
                   style="width: 220px"
                 >
-                  <el-option label="非营运" value="3001" />
-                  <el-option label="营运" value="3002" />
-                  <el-option label="货运" value="3003" />
+                  <el-option label="非营运" value="非营运" />
+                  <el-option label="营运" value="营运" />
+                  <el-option label="货运" value="货运" />
                 </el-select>
               </el-form-item>
             </el-col>
@@ -203,8 +203,8 @@
                   style="width: 220px"
                   placeholder="请选择"
                 >
-                  <el-option label="是" value="1" />
-                  <el-option label="否" value="2" />
+                  <el-option label="是" value="是" />
+                  <el-option label="否" value="否" />
                 </el-select>
               </el-form-item>
             </el-col>
@@ -315,12 +315,12 @@ const update = () => {
     updateOnsite(form).then((res) => {
       if (res.code == 200) {
         sessionStorage.removeItem("userObj");
-        ElMessage.success("保存数据成功");
+        ElMessage.success("修改数据成功");
         router.push({
           path: "/onsiteIndex",
         });
       } else {
-        ElMessage.error("保存数据失败");
+        ElMessage.error("修改数据失败");
       }
     });
   }

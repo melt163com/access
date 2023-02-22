@@ -203,7 +203,7 @@
           <el-row>
             <div style="margin: 10px auto 20px">
               <el-col>
-                <el-button class="sele-but" @click="insert()">保存</el-button>
+                <el-button class="sele-but" @click="update()">修改</el-button>
                 <el-button class="empty-but" @click="close()">取消</el-button>
               </el-col>
             </div>
@@ -218,7 +218,7 @@ import { reactive, ref } from "vue";
 import { ElMessage } from "element-plus";
 import { Plus } from "@element-plus/icons-vue";
 //接口
-import { insertRoad } from "@/api/mobilePollution";
+import { updateRoad } from "@/api/mobilePollution";
 import { UploadProps } from "element-plus";
 // 路由
 import { useRouter } from "vue-router";
@@ -227,12 +227,13 @@ export default {
     const router = useRouter();
     // 跳转回列表页
     const close = () => {
+      sessionStorage.removeItem("userObj");
       router.push({
         path: "/nonRoadIndex",
       });
     };
-    //保存按钮
-    const insert = () => {
+    //修改按钮
+    const update = () => {
       if (form.environmentalProtectionRegistrationCode == "") {
         ElMessage.error("请填写环保登记编码");
       } else if (form.mechanicalEnvironmentalProtectionCode == "") {
@@ -240,8 +241,9 @@ export default {
       } else if (form.vehicleEmissions == "") {
         ElMessage.error("请选择排放阶段");
       } else {
-        insertRoad(form).then((res) => {
+        updateRoad(form).then((res) => {
           if (res.code == 200) {
+            sessionStorage.removeItem("userObj");
             router.push({
               path: "/nonRoadIndex",
             });
@@ -251,11 +253,7 @@ export default {
         });
       }
     };
-    const form = reactive({
-      environmentalProtectionRegistrationCode: "",
-      mechanicalEnvironmentalProtectionCode: "",
-      vehicleEmissions: "",
-    });
+    let form = reactive(JSON.parse(sessionStorage.getItem("userObj")));
     const rules = {
       environmentalProtectionRegistrationCode: [
         {
@@ -279,7 +277,7 @@ export default {
         },
       ],
     };
-    return { form, close, insert, rules };
+    return { form, close, update, rules };
   },
 };
 </script>

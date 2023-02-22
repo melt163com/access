@@ -1,161 +1,252 @@
 <template>
-    <div>
-        <!-- 车辆进出登记 -->
-        <el-container>
-            <el-header class="inside-header">
-                <div>
-                    <!-- 面包屑 -->
-                    <el-breadcrumb separator=">">
-                        <el-breadcrumb-item>移动污染源</el-breadcrumb-item>
-                        <el-breadcrumb-item>数据应用</el-breadcrumb-item>
-                        <el-breadcrumb-item>车辆进出台账</el-breadcrumb-item>
-                        <el-breadcrumb-item class="breadcrumbColor">详情</el-breadcrumb-item>
-                    </el-breadcrumb>
-                </div>
-            </el-header>
-            <el-main style="margin-top: -30px;">
-                <div style="width: 100%;background: #fff;">
-                    <!-- 车辆进出登记 -->
-                    <div class="box-one">
-                        <div style="width: 100%;display: flex;">
-                            <table>
-                                <tr>
-                                    <td class="a">状态:</td>
-                                    <td class="b">已通过</td>
-                                    <td class="a">出入类型:</td>
-                                    <td class="b">出厂</td>
-                                    <td class="a">门禁号:</td>
-                                    <td class="b">一号门</td>
-                                    <td class="a">车辆号:</td>
-                                    <td class="b">xxxx</td>
-                                </tr>
-                                <tr>
-                                    <td>备案状态:</td>
-                                    <td>xxxxx</td>
-                                    <td>申请时间:</td>
-                                    <td>2022-10-24</td>
-                                    <td>出入时间:</td>
-                                    <td>2022-12-11</td>
-                                </tr>
-                                <tr>
-                                    <td>注册日期:</td>
-                                    <td>2022-10-24</td>
-                                    <td>排放阶段:</td>
-                                    <td>国III</td>
-                                    <td>司机:</td>
-                                    <td>张三</td>
-                                    <td>司机电话:</td>
-                                    <td>12323232221</td>
-                                </tr>
-                                <tr>
-                                    <td>车辆识别代码:</td>
-                                    <td>xxxxx</td>
-                                    <td>发动机号:</td>
-                                    <td>xxxx</td>
-                                </tr>
-                                <tr>
-                                    <td>运输货物:</td>
-                                    <td>xxxx</td>
-                                    <td>运输量:</td>
-                                    <td>xxx</td>
-                                    <td>受访部门:</td>
-                                    <td>xxx</td>
-                                    <td>受访人员:</td>
-                                    <td>xxxxxx</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div style="display:flex;justify-content: center;margin: 250px 0 20px 0;">
-                        <el-button class="sele-but" @click='close()'>关闭</el-button>
-                    </div>
-                </div>
-
-            </el-main>
-        </el-container>
-    </div>
+  <div>
+    <el-container>
+      <el-header class="inside-header">
+        <div>
+          <!-- 面包屑 -->
+          <el-breadcrumb separator=">">
+            <el-breadcrumb-item>移动污染源</el-breadcrumb-item>
+            <el-breadcrumb-item>数据应用</el-breadcrumb-item>
+            <el-breadcrumb-item>车辆进出台账</el-breadcrumb-item>
+            <el-breadcrumb-item class="breadcrumbColor"
+              >车辆进出台账详情</el-breadcrumb-item
+            >
+          </el-breadcrumb>
+        </div>
+      </el-header>
+      <el-main style="margin-top: -20px">
+        <el-form
+          style="background: white; padding: 20px"
+          :model="form"
+          label-width="120px"
+        >
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="状态">
+                <el-input v-model="form.statuss" placeholder="请填写" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="出入类型">
+                <el-input v-model="form.typeOfAcces" placeholder="请填写" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="出入类型">
+                <el-input
+                  v-model="form.accessControl"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col> </el-row
+          ><el-row>
+            <el-col :span="8">
+              <el-form-item label="车辆号">
+                <el-input
+                  v-model="form.cl_cph"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="备案状态">
+                <el-input
+                  v-model="form.filingStatus"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="申请时间">
+                <el-input
+                  v-model="form.applicationTime"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="出入时间">
+                <el-input
+                  v-model="form.accessTime"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="注册日期">
+                <el-input
+                  v-model="form.zcrq"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="排放阶段">
+                <el-input
+                  v-model="form.vehicleEmissions"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="司机姓名">
+                <el-input
+                  v-model="form.sj_name"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="司机电话">
+                <el-input
+                  v-model="form.sj_phone"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="车辆识别代码">
+                <el-input
+                  v-model="form.cl_sbm"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="发动机号">
+                <el-input
+                  v-model="form.cl_fdjhm"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="运输货物">
+                <el-input
+                  v-model="form.cargo_type"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="运输量">
+                <el-input
+                  v-model="form.cl_huowushuliang"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item label="受访部门">
+                <el-input
+                  v-model="form.bumen_type"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item label="受访人员">
+                <el-input
+                  v-model="form.bumen_name"
+                  class="w-50 m-2"
+                  placeholder="请填写"
+                />
+              </el-form-item>
+            </el-col> </el-row
+          ><el-row>
+            <div style="margin: 10px auto 20px">
+              <el-col>
+                <el-button class="empty-but" @click="close()">返回</el-button>
+              </el-col>
+            </div>
+          </el-row></el-form
+        ></el-main
+      >
+    </el-container>
+  </div>
 </template>
-<script setup lang="ts">
-    import {
-        reactive,
-        ref
-    } from 'vue'
-    // 路由
-    import {
-        useRouter
-    } from 'vue-router'
-    const router = useRouter()
-        // 跳转回列表页
+<script>
+import { reactive, ref } from "vue";
+import { UploadProps } from "element-plus";
+// 路由
+import { useRouter } from "vue-router";
+export default {
+  setup() {
+    const router = useRouter();
+    // // 跳转回列表页
     const close = () => {
-        router.push({
-            path: '/standingBookIndex',
-            query: ''
-        })
-    }
+      sessionStorage.removeItem("userObj");
+      router.push({
+        path: "/nonRoadIndex",
+      });
+    };
+    // let form = reactive({});
+    let form = reactive(JSON.parse(sessionStorage.getItem("userObj")));
+    return { form, close };
+  },
+};
 </script>
 <style scoped>
-    /* 面包屑字体颜色更改 */
-    
-    .breadcrumbColor>>>.el-breadcrumb__inner {
-        color: #000;
-    }
-    /* 横条蓝条样式 */
-    
-    .head-bar {
-        width: 100%;
-        height: 40px;
-        display: flex;
-    }
-    
-    .head-bar-main {
-        width: 3px;
-        height: 20px;
-        opacity: 1;
-        background: #3780B9;
-        margin-right: 11px;
-    }
-    /* 车辆进出登记表大盒子 */
-    
-    .box-one {
-        display: flex;
-        padding: 4px;
-    }
-    /* 车辆及司机信息大盒子 */
-    
-    .box-two {
-        display: flex;
-        padding: 4px;
-    }
-    
-    table {
-        width: 100%;
-        padding: 10px;
-    }
-    
-    tr {
-        padding: 10px;
-        list-style: none;
-        height: 40px;
-    }
-    
-    .a {
-        width: 900px;
-    }
-    
-    .b {
-        width: 900px;
-    }
-    
-    .c {
-        width: 500px;
-    }
-    /* 实心按钮背景样式 */
-    
-    .sele-but {
-        background: #3780b9;
-        border: 0px;
-        border-radius: 2px;
-        color: white;
-        margin-bottom: 20px;
-    }
+/* 面包屑字体颜色更改 */
+
+.breadcrumbColor >>> .el-breadcrumb__inner {
+  color: #000;
+}
+/* 文件上传文字样式 */
+
+.UPtsxt {
+  width: 120px;
+  height: 30px;
+}
+/* 文件上传样式 */
+
+.avatar-uploader {
+  width: 120px;
+  height: 120px;
+  background-color: #e5f4ff;
+}
+
+.el-icon.avatar-uploader-icon {
+  font-size: 28px;
+  color: #3780b9;
+  width: 120px;
+  height: 120px;
+  text-align: center;
+}
+/* 空心按钮样式 */
+
+.empty-but {
+  border: 1px solid #3780b9;
+  color: #3780b9;
+}
+/* 实心按钮背景样式 */
+
+.sele-but {
+  background: #3780b9;
+  border: 0px;
+  border-radius: 2px;
+  color: white;
+}
 </style>
